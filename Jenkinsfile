@@ -3,9 +3,9 @@ pipeline {
   stages {
     stage('RunDevelopmentProjectBuild') {
       steps {
-        bat 'd:'
-        bat 'cd D:\\Tx_Automate\\DevelopmentDemoPorject'
-        bat 'mvn package'
+        bat 'd:
+        cd D:\\Tx_Automate\\DevelopmentDemoPorject
+        mvn package'
       }
     }
     stage('RunAutomationTests_API') {
