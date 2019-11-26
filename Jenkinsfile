@@ -13,10 +13,9 @@ pipeline {
     }
     stage('RunAutomationTests_API') {
       steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
+        catchError{
+        def apiResult = bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
         }
       }
     }
-  }
 }
