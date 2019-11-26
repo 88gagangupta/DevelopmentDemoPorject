@@ -21,13 +21,15 @@ pipeline {
     }
     stage('Web Test') {
       steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @Amazon"'
-      }
+        }}
     }
     stage('Mobile Test') {
       steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @MobileTest"'
-      }
+        }}
     }
     stage('Performance Test') {
       steps {
