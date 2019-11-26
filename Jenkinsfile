@@ -46,6 +46,7 @@ pipeline {
         bat 'd: && cd D:\\Tx_Automate\\ApacheJmeter\\apache-jmeter-3.2\\bin && jmeter -n -t "D:\\Tx_Automate\\ApacheJmeter\\Test_Scripts\\UPCTest1.jmx" -l "D:\\Tx_Automate\\ApacheJmeter\\Results\\TestResults1.jtl" -e -o "D:\\Tx_Automate\\ApacheJmeter\\Results\\DashboardReports"'
       }
     }
-
   }
+  if(result.equals('SUCCESS'))
+  {}else{currentBuild.result = 'FAILURE'}
 }
