@@ -9,7 +9,12 @@ pipeline {
     stage('RunAutomationTests_API') {
       steps {
         bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
-        }
+      }
     }
+    stage('Code Analysis') {
+      steps {
+        bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn sonar:sonar -Dsonar.host.url=http://localhost:9000'
+      }
     }
   }
+}
