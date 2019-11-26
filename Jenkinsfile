@@ -47,6 +47,4 @@ pipeline {
       }
     }
   }
-  if(result.equals('SUCCESS'))
-  {}else{currentBuild.result = 'FAILURE'}
 }
