@@ -23,7 +23,7 @@ pipeline {
   post { 
         failure { 
             echo 'Pipeline failed due to test failures'
-          currentBuild.result = 'FAILURE'
+            currentBuild.result = 'FAILURE'
         }
     }
 }
