@@ -1,7 +1,6 @@
 pipeline {
   agent any
   stages {
-    pipelineResult = 'SUCCESS'
     stage('Build') {
       steps {
         bat 'd: & cd D:\\Tx_Automate\\DevelopmentDemoPorject & mvn package'
@@ -18,10 +17,11 @@ pipeline {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
+          script{
+          if(currentStage.result == 'FAILURE')
+            {pipelineResult = 'FAILURE'}}
         }
       }
-      if(currentStage.result == 'FAILURE')
-      {pipelineResult = 'FAILURE'}
     }
 
     stage('Web Test') {
