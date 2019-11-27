@@ -1,6 +1,7 @@
 pipeline {
   agent any
   stages {
+    def pipelineResult = 'SUCCESS'
     stage('Build') {
       steps {
         bat 'd: & cd D:\\Tx_Automate\\DevelopmentDemoPorject & mvn package'
@@ -16,11 +17,11 @@ pipeline {
     stage('API Test') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          def apiResult = bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
-          result = apiResult.result
+          bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
         }
-
       }
+      if(currentStage.result == 'FAILURE')
+      {pipelineResult = 'FAILURE'}
     }
 
     stage('Web Test') {
@@ -45,9 +46,9 @@ pipeline {
       steps {
         deleteDir()
         bat 'd: && cd D:\\Tx_Automate\\ApacheJmeter\\apache-jmeter-3.2\\bin && jmeter -n -t "D:\\Tx_Automate\\ApacheJmeter\\Test_Scripts\\UPCTest1.jmx" -l "D:\\Tx_Automate\\ApacheJmeter\\Results\\TestResults1.jtl" -e -o "D:\\Tx_Automate\\ApacheJmeter\\Results\\DashboardReports"'
-        if(result.equals('SUCCESS'))
-        {}else{currentBuild.result = 'FAILURE'}
       }
+        if(pipelineResult.equals('FAILURE'))
+        {currentBuild.result = 'FAILURE'}
     }
   }
 }
