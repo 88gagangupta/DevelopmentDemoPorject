@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment { 
-        pipelineResult = 'FAILURE'
+        pipelineResult = 'SUCCESS'
     }
   stages {
     stage('Build') {
