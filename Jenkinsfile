@@ -10,10 +10,10 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           bat 'd: & cd D:\\Tx_Automate\\txautomatejava-bdd\\cucumber-jvm-template-master 2.0 & mvn test -Dcucumber.options="--tags @APItests"'
           }
-          script{
+      }
+                script{
           if(currentStage.result.equals('FAILURE'))
             {pipelineResult = 'FAILURE'}}
-      }
     }
     
     stage('Performance Test') {
