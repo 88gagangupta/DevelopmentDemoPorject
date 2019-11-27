@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    def pipelineResult = 'SUCCESS'
+    pipelineResult = 'SUCCESS'
     stage('Build') {
       steps {
         bat 'd: & cd D:\\Tx_Automate\\DevelopmentDemoPorject & mvn package'
@@ -46,9 +46,10 @@ pipeline {
       steps {
         deleteDir()
         bat 'd: && cd D:\\Tx_Automate\\ApacheJmeter\\apache-jmeter-3.2\\bin && jmeter -n -t "D:\\Tx_Automate\\ApacheJmeter\\Test_Scripts\\UPCTest1.jmx" -l "D:\\Tx_Automate\\ApacheJmeter\\Results\\TestResults1.jtl" -e -o "D:\\Tx_Automate\\ApacheJmeter\\Results\\DashboardReports"'
-      }
+        script{
         if(pipelineResult.equals('FAILURE'))
-        {currentBuild.result = 'FAILURE'}
+          {currentBuild.result = 'FAILURE'}}
+      }
     }
   }
 }
