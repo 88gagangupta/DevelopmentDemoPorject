@@ -1,7 +1,9 @@
 pipeline {
   agent any
   stages {
-    pipelineResult = 'SUCCESS'
+    script{
+    def pipelineResult = 'SUCCESS'
+    }
     stage('Build') {
       steps {
         bat 'd: & cd D:\\Tx_Automate\\DevelopmentDemoPorject & mvn package'
